@@ -1,6 +1,8 @@
 ﻿using AirtableApiClient;
+using System.Collections;
 using System.Collections.Generic;
 using System.IO;
+using System.Linq;
 using System.Text.Json;
 using System.Text.Json.Nodes;
 using System.Threading.Tasks;
@@ -49,10 +51,13 @@ namespace AirtableConnector.Core
 			return data;
 		}
 
-		public Dictionary<string, List<string>> QueryProjectsByCity(string cityName)
+		public async Task<Dictionary<string, List<string>>> QueryProjectsByCity(string cityName)
 		{
 			Dictionary<string, List<string>> data = new();
-			return data;
-		}
+
+            var result = await RetrieveDataFromTablesAsync("Projects");
+			data = result.Where(kvp => kvp.Value.Contains(cityName)).ToDictionary(x => x.Key, x => x.Value);
+            return data;
+        }
 	}
 }

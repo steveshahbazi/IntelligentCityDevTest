@@ -25,9 +25,9 @@ namespace AirtableConnector.Tests
 		}
 
 		[Fact]
-		public void QueryProjectsByCityTest()
+		public async Task QueryProjectsByCityTest()
 		{
-			Dictionary<string, List<string>> data = Getter.QueryProjectsByCity("Vancouver");
+			Dictionary<string, List<string>> data = await Getter.QueryProjectsByCity("Vancouver");
 			Assert.True(data.Count == 6);
 		}
 	}
