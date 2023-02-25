@@ -6,7 +6,7 @@ using static System.Net.Mime.MediaTypeNames;
 
 namespace TestProjectNUnit
 {
-    public class Tests
+    public class TestRetrieveDataFromTables
     {
         //since this is for test only purpose I've added the secrets here; however, it should be properly encoded either in app_settings or coming from a database, or...
         AirtableGetter Getter { get; set; } = new AirtableGetter("apphruxl9mXWH7QJJ", @"..\..\..\Resources\secrets.json");
