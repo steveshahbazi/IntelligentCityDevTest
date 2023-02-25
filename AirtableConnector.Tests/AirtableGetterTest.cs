@@ -1,5 +1,6 @@
 using AirtableConnector.Core;
 using System.Collections.Generic;
+using System.Threading.Tasks;
 using Xunit;
 
 namespace AirtableConnector.Tests
@@ -9,16 +10,17 @@ namespace AirtableConnector.Tests
 		AirtableGetter Getter { get; set; } = new AirtableGetter("apphruxl9mXWH7QJJ", "API_KEY_FILEPATH");
 
 		[Fact]
-		public void RetrieveDataFromProjectsTableTest()
+		public async void RetrieveDataFromProjectsTableTest()
 		{
-			Dictionary<string, List<string>> data = Getter.RetrieveDataFromTables("Projects");
-			Assert.NotEmpty(data);
+			Dictionary<string, List<string>> data = await Getter.RetrieveDataFromTablesAsync("Projects");
+			//Assert.NotEmpty(data);
+			Assert.False(true);
 		}
 
 		[Fact]
-		public void RetrieveDataFromClientsTableTest()
+		public async Task RetrieveDataFromClientsTableTestAsync()
 		{
-			Dictionary<string, List<string>> data = Getter.RetrieveDataFromTables("Client");
+			Dictionary<string, List<string>> data = await Getter.RetrieveDataFromTablesAsync("Client");
 			Assert.NotEmpty(data);
 		}
 

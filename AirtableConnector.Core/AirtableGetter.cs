@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.IO;
 using System.Text.Json;
 using System.Text.Json.Nodes;
+using System.Threading.Tasks;
 
 namespace AirtableConnector.Core
 {
@@ -26,10 +27,25 @@ namespace AirtableConnector.Core
 			return data[key].ToString();
 		}
 
-		public Dictionary<string, List<string>> RetrieveDataFromTables(string tableName)
+		public async Task<Dictionary<string, List<string>>> RetrieveDataFromTablesAsync(string tableName)
 		{
-			Dictionary<string, List<string>> data = new();
-			Base.ListRecords(tableName);
+            //I need more information on what you actuallu needs to be returned
+            //I assume you need a dictionary with key equals to Id of a record
+            //which comes from Base.ListRecords records and the values are from the fields inside each record
+            Dictionary<string, List<string>> data = new();
+			var result = await Base.ListRecords(tableName);
+			if (result.Success)
+			{
+				foreach (var item in result.Records)
+				{
+					List<string> record = new List<string>();
+					foreach (var rec in item.Fields)
+					{
+						record.Add(rec.Value.ToString());
+					}
+					data.Add(item.Id, record);
+				}
+			}
 			return data;
 		}
 
